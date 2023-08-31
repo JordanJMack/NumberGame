@@ -1,0 +1,57 @@
+<html>
+<head>
+<style>
+
+
+</style>
+<title>
+</title>
+<body>
+
+<p id="newNumber"> </p>
+
+<script>
+
+var updateNum = 0;
+
+function randomIntFromInterval() { // min and max included 
+  var newNum = Math.floor(Math.random() * (1000 - 1 + 1) + 1)
+  document.getElementById("newNumber").innerHTML = newNum;
+  updateNum = newNum;
+}
+const numOrder = [];      
+</script>
+
+
+<button onclick="randomIntFromInterval()">Generate Number</button>
+
+<table>
+<script>
+for (let i = 0; i < 20; i++) {
+	displayNum = i+1;
+	 if (numOrder[i] != undefined){numNum = numOrder[i];} else{numNum = " ";}
+   document.body.innerHTML += '<div id = ' + i + '><a id="addNum" href="#" onclick="updateArray(' + i + ');return false;">' + displayNum + ': </a> <div id=update' + displayNum +'>' + numNum + '</div>';
+document.body.innerHTML += '';
+   numNum = '';
+}
+
+
+function updateArray(arrayNum){
+var trueNum = arrayNum;
+console.log("Updating Array at position " + trueNum + " to " + updateNum);
+numOrder[trueNum] = updateNum;
+divName = "update" + (arrayNum+1);
+console.log(divName);
+document.getElementById(divName).innerHTML = updateNum;
+}
+
+</script>
+
+</table>
+
+<table>
+<tr><td>test</td><td id="test">test2</td></tr>
+</table>
+
+</body>
+</html>
