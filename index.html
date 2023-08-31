@@ -1,57 +1,99 @@
+<!DOCTYPE html>
 <html>
 <head>
-<style>
-
-
-</style>
-<title>
-</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+    }
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+      background: #4CAF50;
+      color: white;
+      font-size: 2em;
+      flex-direction: column;
+    }
+    .hero p {
+      margin: 0;
+    }
+    .hero button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: white;
+      color: #4CAF50;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .hero button:hover {
+      background: #f2f2f2;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 20px;
+    }
+    .numberCard {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      width: 200px;
+      justify-content: space-between;
+    }
+  </style>
+  <title>Number Generator</title>
+</head>
 <body>
 
-<p id="newNumber"> </p>
+  <div class="hero">
+    <p id="newNumber">Press the button to generate a number</p>
+    <button onclick="randomIntFromInterval()">Generate Number</button>
+  </div>
 
-<script>
+  <div class="container" id="numberContainer"></div>
 
-var updateNum = 0;
+  <script>
+    let updateNum = 0;
+    let numOrder = Array(20).fill(" ");
 
-function randomIntFromInterval() { // min and max included 
-  var newNum = Math.floor(Math.random() * (1000 - 1 + 1) + 1)
-  document.getElementById("newNumber").innerHTML = newNum;
-  updateNum = newNum;
-}
-const numOrder = [];      
-</script>
+    function randomIntFromInterval() {
+      let newNum = Math.floor(Math.random() * (1000 - 1 + 1) + 1);
+      document.getElementById("newNumber").textContent = `Generated Number: ${newNum}`;
+      updateNum = newNum;
+    }
 
+    function createNumberDivs() {
+      const numberContainer = document.getElementById("numberContainer");
+      numberContainer.innerHTML = '';
 
-<button onclick="randomIntFromInterval()">Generate Number</button>
+      numOrder.forEach((num, i) => {
+        let displayNum = i + 1;
+        numberContainer.innerHTML += `
+          <div class="numberCard">
+            <a href="#" onclick="updateArray(${i});return false;">${displayNum}:</a> 
+            <div id="update${displayNum}">${num}</div>
+          </div>`;
+      });
+    }
 
-<table>
-<script>
-for (let i = 0; i < 20; i++) {
-	displayNum = i+1;
-	 if (numOrder[i] != undefined){numNum = numOrder[i];} else{numNum = " ";}
-   document.body.innerHTML += '<div id = ' + i + '><a id="addNum" href="#" onclick="updateArray(' + i + ');return false;">' + displayNum + ': </a> <div id=update' + displayNum +'>' + numNum + '</div>';
-document.body.innerHTML += '';
-   numNum = '';
-}
+    function updateArray(arrayNum){
+      numOrder[arrayNum] = updateNum;
+      let divName = "update" + (arrayNum + 1);
+      document.getElementById(divName).textContent = updateNum;
+    }
 
-
-function updateArray(arrayNum){
-var trueNum = arrayNum;
-console.log("Updating Array at position " + trueNum + " to " + updateNum);
-numOrder[trueNum] = updateNum;
-divName = "update" + (arrayNum+1);
-console.log(divName);
-document.getElementById(divName).innerHTML = updateNum;
-}
-
-</script>
-
-</table>
-
-<table>
-<tr><td>test</td><td id="test">test2</td></tr>
-</table>
+    createNumberDivs();
+  </script>
 
 </body>
 </html>
